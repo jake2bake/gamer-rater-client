@@ -1,10 +1,27 @@
 .navbar {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: center;   /* Center items horizontally */
+    align-items: center;       /* Center items vertically (optional) */
+    width: 100vw;              /* Full viewport width */
+    position: fixed;           /* Stick to top */
+    top: 0;
+    left: 0;
+    background: white;         /* Or your preferred color */
+    z-index: 1000;             /* Stay above other content */
+    height: 60px;              /* Set a height if needed */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional shadow */
+    margin-top: 0px;
 }
 
 .navbar__item {
     flex-basis: 20%;
     list-style-type: none;
+    padding-left: 20px;
+    
+}
+
+.main-content {
+  padding-top: 60px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
