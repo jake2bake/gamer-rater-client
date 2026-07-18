@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 
 export const Register = () => {
-    const [email, setEmail] = useState("admina@straytor.com")
-    const [password, setPassword] = useState("straytor")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     
     const existDialog = useRef()
     const navigate = useNavigate()
