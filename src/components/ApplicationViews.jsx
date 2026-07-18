@@ -3,32 +3,55 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Authorized } from "./Authorized"
 import { Login } from "../pages/Login.jsx"
 import Home from "../pages/Home"
-
+import { Register } from '../pages/Register.jsx'
+import { GameList } from "./GameList.jsx"
+import { GameDetails } from './GameDetails.jsx'
+import { GameForm } from './GameForm.jsx'
+import { ReviewForm } from './ReviewForm.jsx'
+import { UpdateGame } from './UpdateGame.jsx'
 
 
 export const ApplicationViews = () => {
-    const [rocksState, setRocksState] = useState([])
+    const [gamesState, setGamesState] = useState([])
+    const [reviewState, setReviewState] = useState([])
 
-    const fetchRocksFromAPI = async (showAll) => {
-        let url = "http://localhost:8000/games"
-        
-
-        if (showAll !== true) {
-            
-            url = "http://localhost:8000/rocks?owner=current"
-        }
+    const currentUser = JSON.parse(localStorage.getItem("rater_user"))
+    
+    
+    const fetchReviewsFromAPI = async () => {
+        let url = "http://localhost:8000/reviews"
         const response = await fetch(url,
             {
                 headers: {
                     Authorization: `Token ${JSON.parse(localStorage.getItem("rater_token")).token}`
                 }
             })
-            const rocks = await response.json()
+            const reviews = await response.json()
+        setReviewState(reviews)
+
+    }
+    
+
+    const fetchGamesFromAPI = async () => {
+        let url = "http://localhost:8000/games"
+        
+
+        // if (showAll !== true) {
+            
+        //     url = "http://localhost:8000/rocks?owner=current"
+        // }
+        const response = await fetch(url,
+            {
+                headers: {
+                    Authorization: `Token ${JSON.parse(localStorage.getItem("rater_token")).token}`
+                }
+            })
+            const games = await response.json()
            
-        setRocksState(rocks)
+        setGamesState(games)
     }
 useEffect(() => {
-    fetchRocksFromAPI()
+    fetchGamesFromAPI()
 }, [])
 
     return <BrowserRouter>
@@ -37,9 +60,12 @@ useEffect(() => {
             <Route path="/register" element={<Register />} />
             <Route element={<Authorized />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/allgames" element={<GameList rocks={rocksState} fetchRocks={fetchRocksFromAPI} showAll={true} />} />
-                <Route path="/create" element={<RockForm fetchRocks={fetchRocksFromAPI} />} />
-                <Route path="/mine" element={<RockList rocks={rocksState} fetchRocks={fetchRocksFromAPI} showAll={false} />} />
+                <Route path="/allgames" element={<GameList games={gamesState} fetchGames={fetchGamesFromAPI} showAll={true} currentUser={currentUser} />} />
+                <Route path="/games/:gameId" element={<GameDetails reviews ={reviewState} fetchReviews={fetchReviewsFromAPI} currentUser={currentUser} />} />
+                <Route path="/addgame" element={<GameForm fetchGames={fetchGamesFromAPI} />} /> 
+                <Route path="/games/:gameId/review" element={<ReviewForm />} />
+                <Route path="/games/:gameId/edit" element={<UpdateGame currentUser={currentUser} />} />
+                
             </Route>
         </Routes>
     </BrowserRouter>
