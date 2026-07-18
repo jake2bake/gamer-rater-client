@@ -4,8 +4,8 @@ import "./Login.css"
 
 
 export const Login = () => {
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const existDialog = useRef()
     const navigate = useNavigate()
 
@@ -20,8 +20,12 @@ export const Login = () => {
         })
             .then(res => res.json())
             .then(authInfo => {
-                if (authInfo.valid) {
-                    localStorage.setItem("rater_token", JSON.stringify(authInfo))
+                if (authInfo.token) {
+                    localStorage.setItem("rater_token", authInfo.token)
+                    localStorage.setItem("rater_user", JSON.stringify({
+                        
+                        id: authInfo.id,
+                        email: authInfo.email}))
                     navigate("/")
                 } else {
                     existDialog.current.showModal()
