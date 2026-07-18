@@ -54,6 +54,7 @@ fieldset {
 
 .container--login {
     text-align: center;
+    color: pink;
 }
 
 .button--close {
