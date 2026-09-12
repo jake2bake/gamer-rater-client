@@ -39,7 +39,7 @@ export const GameForm = ({ fetchGames }) => {
     if (response.ok) {
         const newGame = await response.json()
 
-        // Step 2: Now post the GameCategory
+        
         if (selectedCategoryId !== 0) {
             await fetch("http://localhost:8000/gamecategories", {
                 method: "POST",
