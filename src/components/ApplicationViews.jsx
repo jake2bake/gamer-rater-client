@@ -36,10 +36,7 @@ export const ApplicationViews = () => {
         let url = "http://localhost:8000/games"
         
 
-        // if (showAll !== true) {
-            
-        //     url = "http://localhost:8000/rocks?owner=current"
-        // }
+        
         const response = await fetch(url,
             {
                 headers: {
