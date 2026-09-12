@@ -53,7 +53,7 @@ export const GameList = ({ games, fetchGames, showAll }) => {
     return ( <>
         <button className="btn-primary" onClick={() => navigate("/addgame")}>Register New Game</button> 
         <div className="gamelist-container">
-            <h1 className="gamelist-title">Games List</h1>
+            <h1 className="gamelist-title"> Games List </h1>
             {displayGames()}
         </div>
         </>
